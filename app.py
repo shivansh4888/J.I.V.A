@@ -4,10 +4,15 @@ import re
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-
+from dotenv import load_dotenv
 # Initialize Flask App
+load_dotenv()
 app = Flask(__name__)
-api_key = "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"
+api_key = os.getenv("OPENAI_API_KEY")
+
+# Check if API key exists
+if not api_key:
+    raise ValueError("❌ OpenAI API Key is missing! Set the 'OPENAI_API_KEY' environment variable.")
 
 # Load API key securely from an environment variable (NEVER expose it in code!)
 
